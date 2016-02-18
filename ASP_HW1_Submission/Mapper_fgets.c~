@@ -1,0 +1,50 @@
+#include <stdio.h>
+#include <string.h>
+
+#define MAX_LINE_SIZE   20
+
+int main()
+{
+    char NextLine[MAX_LINE_SIZE];
+    char *NewLine_Char = "\n";
+    FILE *FileDesc;
+    FILE *OutFile;
+    char FileName[20] = "ASP_HW1_Input.txt";
+    
+    
+    
+    FileDesc = fopen(FileName,"r");
+    OutFile = fopen("ASP_HW1_Intermediate.txt", "w");
+    if (FileDesc == NULL)
+    {
+        printf("Error Opening Input File in Mapper");
+        return 0;
+    }
+    
+    if (OutFile == NULL)
+    {
+        printf("Error Opening Intermediate File in Mapper");
+        return 0;
+    }
+        
+    
+    while(fgets(NextLine, MAX_LINE_SIZE, FileDesc) != NULL)
+    {
+        if (!strcmp(NextLine, NewLine_Char))
+            continue;
+        printf("(%s, 1)\n", strtok(NextLine,"\n"));
+        
+        
+        //fprintf(OutFile,"(%s, 1)\n", NewLine);
+        /*
+            write(fd[1], "( %s, 1)\n", NewLine);
+        */
+    }
+    
+    printf("printing Done\n");
+    fclose(FileDesc);
+    fclose(OutFile);
+
+    return 0;
+}
+
